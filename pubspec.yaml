@@ -37,6 +37,8 @@ dependencies:
   google_fonts: ^5.1.0
   ionicons: ^0.2.2
   provider: ^6.0.5
+  flutter_vector_icons: ^2.0.0
+  cached_network_image: ^3.2.3
 
 dev_dependencies:
   flutter_test:
