@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       labelStyle: appStyleWithHt(
                           16, Colors.white, FontWeight.bold, 0.1),
                       unselectedLabelColor: Colors.grey.withOpacity(0.3),
-                      labelPadding: const EdgeInsets.only(right: 12, top: 0),
+                      labelPadding: const EdgeInsets.only(right: 12, top: 0), 
                       padding: const EdgeInsets.only(left: 1),
                       tabAlignment: TabAlignment.start,
                       dividerColor: Colors.transparent,
