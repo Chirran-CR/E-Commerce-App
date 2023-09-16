@@ -1,13 +1,14 @@
 import "package:e_commerce_app/controllers/main_screen_notifier.dart";
 import "package:e_commerce_app/views/shared/app_style.dart";
 import "package:e_commerce_app/views/shared/bottom_nav_bar.dart";
-import "package:e_commerce_app/views/shared/bottom_nav_widget.dart";
+// import "package:e_commerce_app/views/shared/bottom_nav_widget.dart";
 import "package:e_commerce_app/views/ui/cart_page.dart";
 import "package:e_commerce_app/views/ui/home_page.dart";
+import "package:e_commerce_app/views/ui/product_by_cart.dart";
 import "package:e_commerce_app/views/ui/profile_page.dart";
 import "package:e_commerce_app/views/ui/search_page.dart";
 import "package:flutter/material.dart";
-import "package:ionicons/ionicons.dart";
+// import "package:ionicons/ionicons.dart";
 import "package:provider/provider.dart";
 
 class MainScreen extends StatelessWidget {
@@ -16,7 +17,7 @@ class MainScreen extends StatelessWidget {
   final List<Widget> pageList = [
     const HomePage(),
     const SearchPage(),
-    const HomePage(),
+    const ProductByCart(),
     const CartPage(),
     const ProfilePage(),
   ];
