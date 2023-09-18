@@ -1,6 +1,8 @@
 import "package:e_commerce_app/models/sneaker_model.dart";
 import "package:e_commerce_app/services/helper.dart";
 import "package:e_commerce_app/views/shared/app_style.dart";
+import "package:e_commerce_app/views/shared/latest_shoes.dart";
+import "package:e_commerce_app/views/shared/stagger_tile.dart";
 import "package:flutter/material.dart";
 import "package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart";
 import "package:flutter_vector_icons/flutter_vector_icons.dart";
@@ -119,77 +121,9 @@ class _ProductByCartState extends State<ProductByCart>
               child: TabBarView(
                 controller: _tabController,
                 children: [
-                  FutureBuilder<List<Sneakers>>(
-                    future: _male,
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const CircularProgressIndicator();
-                      } else if (snapshot.hasError) {
-                        return Text("Error ${snapshot.error}");
-                      } else {
-                        final male = snapshot.data;
-                        return GridView.custom(
-                          gridDelegate: SliverQuiltedGridDelegate(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 4,
-                            crossAxisSpacing: 2,
-                            repeatPattern: QuiltedGridRepeatPattern.same,
-                            pattern: [
-                              QuiltedGridTile(1, 1),
-                              QuiltedGridTile(2, 1),
-                              QuiltedGridTile(1, 1),
-                              QuiltedGridTile(1, 1),
-                            ],
-                          ),
-                          childrenDelegate:
-                              SliverChildBuilderDelegate((context, index) {
-                            final shoe = snapshot.data![index];
-                            print("vla of index is $index");
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 8.0, right: 8),
-                              child: Container(
-                                decoration: const BoxDecoration(
-                                  color: Colors.amber,
-                                ),
-                              ),
-                            );
-                          }),
-
-                          // padding: EdgeInsets.zero,
-                          // crossAxisCount: 2,
-                          // crossAxisSpacing: 20,
-                          // mainAxisSpacing: 16,
-
-                          // itemCount: male!.length,
-                          // scrollDirection: Axis.horizontal,
-                          // itemBuilder: (context, index) {
-                          //   final shoe = snapshot.data![index];
-                          //   return Padding(
-                          //     padding:
-                          //         const EdgeInsets.only(left: 8.0, right: 8),
-                          //     child: ProductCard(
-                          //         name: shoe.name,
-                          //         category: shoe.category,
-                          //         price: "\$${shoe.price}",
-                          //         id: shoe.id,
-                          //         image: shoe.imageUrl[0]),
-                          //   );
-                          // },
-                        );
-                      }
-                    },
-                  ),
-                  Container(
-                    height: 500,
-                    width: 300,
-                    color: Colors.green,
-                  ),
-                  Container(
-                    height: 500,
-                    width: 300,
-                    color: Colors.green,
-                  ),
+                  LatestShoes(male: _male),
+                  LatestShoes(male: _female),
+                  LatestShoes(male: _kids),
                 ],
               ),
             )
