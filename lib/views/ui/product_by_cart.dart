@@ -6,13 +6,15 @@ import "package:e_commerce_app/views/shared/app_style.dart";
 import "package:e_commerce_app/views/shared/category_btn.dart";
 import "package:e_commerce_app/views/shared/custom_spacer.dart";
 import "package:e_commerce_app/views/shared/latest_shoes.dart";
-import "package:e_commerce_app/views/shared/stagger_tile.dart";
+// import "package:e_commerce_app/views/shared/stagger_tile.dart";
 import "package:flutter/material.dart";
-import "package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart";
+// import "package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart";
 import "package:flutter_vector_icons/flutter_vector_icons.dart";
 
 class ProductByCart extends StatefulWidget {
-  const ProductByCart({super.key});
+  final int tabIndex;
+
+  const ProductByCart({super.key, required this.tabIndex});
 
   @override
   State<ProductByCart> createState() => _ProductByCartState();
@@ -21,7 +23,7 @@ class ProductByCart extends StatefulWidget {
 class _ProductByCartState extends State<ProductByCart>
     with TickerProviderStateMixin {
   late final TabController _tabController =
-      TabController(length: 3, vsync: this);
+      TabController(length: 3, vsync: this, initialIndex: widget.tabIndex);
 
   late Future<List<Sneakers>> _male;
   late Future<List<Sneakers>> _female;
@@ -111,10 +113,12 @@ class _ProductByCartState extends State<ProductByCart>
                     labelStyle:
                         appStyleWithHt(16, Colors.white, FontWeight.bold, 0.1),
                     unselectedLabelColor: Colors.grey.withOpacity(0.3),
+
                     labelPadding: const EdgeInsets.only(right: 12, top: 0),
                     // padding: const EdgeInsets.only(left: 1),
                     tabAlignment: TabAlignment.start,
                     dividerColor: Colors.transparent,
+
                     tabs: const [
                       Tab(text: "Men Shoes"),
                       Tab(text: "Women Shoes"),
