@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/controllers/product_notifier.dart';
 import 'package:e_commerce_app/models/sneaker_model.dart';
 import 'package:e_commerce_app/views/shared/app_style.dart';
 import 'package:e_commerce_app/views/shared/new_shoes.dart';
@@ -6,6 +7,7 @@ import 'package:e_commerce_app/views/ui/product_by_cart.dart';
 import 'package:e_commerce_app/views/ui/product_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:provider/provider.dart';
 
 class HomeWidget extends StatelessWidget {
   const HomeWidget({
@@ -20,6 +22,8 @@ class HomeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var productNotifier = Provider.of<ProductNotifier>(context);
+
     return Column(
       children: [
         SizedBox(
@@ -42,6 +46,9 @@ class HomeWidget extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 8.0, right: 8),
                       child: GestureDetector(
                         onTap: () {
+                          productNotifier.shoeSizes = shoe.sizes;
+                          print("val of productNotifier.shoeSizes is: ${productNotifier.shoeSizes}");
+                          
                           Navigator.push(
                               context,
                               MaterialPageRoute(

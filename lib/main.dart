@@ -5,6 +5,11 @@ import "package:flutter/material.dart";
 import "package:provider/provider.dart";
 
 void main() {
+
+  // WidgetsFlutterBinding.ensureInitialized();
+  
+  // await Hive.ini
+
   runApp(
     MultiProvider(
       providers: [
