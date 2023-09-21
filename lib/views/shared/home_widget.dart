@@ -3,6 +3,7 @@ import 'package:e_commerce_app/views/shared/app_style.dart';
 import 'package:e_commerce_app/views/shared/new_shoes.dart';
 import 'package:e_commerce_app/views/shared/product_card.dart';
 import 'package:e_commerce_app/views/ui/product_by_cart.dart';
+import 'package:e_commerce_app/views/ui/product_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
@@ -39,12 +40,22 @@ class HomeWidget extends StatelessWidget {
                     final shoe = snapshot.data![index];
                     return Padding(
                       padding: const EdgeInsets.only(left: 8.0, right: 8),
-                      child: ProductCard(
-                          name: shoe.name,
-                          category: shoe.category,
-                          price: "\$${shoe.price}",
-                          id: shoe.id,
-                          image: shoe.imageUrl[0]),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ProductPage(
+                                    id: shoe.id, category: shoe.category),
+                              ));
+                        },
+                        child: ProductCard(
+                            name: shoe.name,
+                            category: shoe.category,
+                            price: "\$${shoe.price}",
+                            id: shoe.id,
+                            image: shoe.imageUrl[0]),
+                      ),
                     );
                   },
                 );
