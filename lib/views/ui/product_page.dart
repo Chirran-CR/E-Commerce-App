@@ -7,6 +7,7 @@ import "package:e_commerce_app/views/shared/checkout_btn.dart";
 import "package:flutter/material.dart";
 import "package:flutter_rating_bar/flutter_rating_bar.dart";
 import "package:flutter_vector_icons/flutter_vector_icons.dart";
+import "package:hive/hive.dart";
 import "package:provider/provider.dart";
 
 class ProductPage extends StatefulWidget {
@@ -20,6 +21,7 @@ class ProductPage extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage> {
   final PageController pageController = PageController();
+  final _cartBox = Hive.box("cart_box");
 
   late Future<Sneakers> _sneaker;
 
@@ -37,6 +39,10 @@ class _ProductPageState extends State<ProductPage> {
   void initState() {
     super.initState();
     getShoes();
+  }
+
+  Future<void> _createCart(Map<String, dynamic> newCart) async {
+    await _cartBox.add(newCart);
   }
 
   @override
@@ -290,7 +296,7 @@ class _ProductPageState extends State<ProductPage> {
                                                         ),
                                                       ),
                                                       disabledColor:
-                                                          Colors.white,
+                                                          Colors.grey,
                                                       showCheckmark: false,
                                                       label: Text(
                                                         sizes['size'],
@@ -309,6 +315,22 @@ class _ProductPageState extends State<ProductPage> {
                                                       selected:
                                                           sizes['isSelected'],
                                                       onSelected: (newState) {
+                                                        // productNotifier
+                                                        //     .toggleCheck(index);
+                                                        if (productNotifier
+                                                            .sizes
+                                                            .contains(sizes[
+                                                                'size'])) {
+                                                          productNotifier.sizes
+                                                              .remove(sizes[
+                                                                  'size']);
+                                                        } else {
+                                                          productNotifier.sizes
+                                                              .add(sizes[
+                                                                  'size']);
+                                                        }
+                                                        print(
+                                                            "val of productNotifier.sizes is ${productNotifier.sizes}");
                                                         productNotifier
                                                             .toggleCheck(index);
                                                       },
@@ -355,7 +377,19 @@ class _ProductPageState extends State<ProductPage> {
                                                 const EdgeInsets.only(top: 4),
                                             child: CheckoutBtn(
                                               label: "Add to Cart",
-                                              onTap: () {},
+                                              onTap: () async {
+                                                _createCart({
+                                                  "id":sneaker.id,
+                                                  "name": sneaker.name,
+                                                  "category": sneaker.category,
+                                                  "sizes": productNotifier.sizes,
+                                                  "imageUrl":sneaker.imageUrl[0],
+                                                  "price":sneaker.price,
+                                                  "qty":1,
+                                                });
+                                                productNotifier.sizes.clear();
+                                                Navigator.pop(context);
+                                              },
                                             ),
                                           ),
                                         ),
@@ -464,38 +498,3 @@ class _ProductPageState extends State<ProductPage> {
     );
   }
 }
-
-// class CheckoutBtn extends StatelessWidget {
-//   const CheckoutBtn({
-//     super.key,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return GestureDetector(
-//       onTap: (){},
-//       child: Padding(
-//         padding: const EdgeInsets.all(8),
-//         child: Container(
-//           decoration: const BoxDecoration(
-//               color: Colors.black,
-//               borderRadius:
-//                   BorderRadius.all(
-//                       Radius.circular(
-//                           12))),
-//           height: 50,
-//           width: MediaQuery.of(context)
-//                   .size
-//                   .width *
-//               0.9,
-//           child: Center(
-//               child: Text("Add to Bag",
-//                   style: appStyle(
-//                       20,
-//                       Colors.white,
-//                       FontWeight.bold))),
-//         ),
-//       ),
-//     );
-//   }
-// }
